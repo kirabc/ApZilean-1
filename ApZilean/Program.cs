@@ -165,7 +165,7 @@ namespace ApZilean
                 Vector3 position;             
                 
                 //full combo
-                if (E.IsInRange(enemy) && ise)
+                if (E.IsInRange(enemy) && ise && E.IsReady())
                 {
                         E.Cast(enemy);
                 }
@@ -174,6 +174,10 @@ namespace ApZilean
                 {
                     Q.Cast(position = Q.GetPrediction(enemy).CastPosition);
                     await Task.Delay(350); //q delay fix
+                    if (E.IsInRange(enemy) && ise && E.IsReady())
+                    {
+                        E.Cast(enemy);
+                    }
                     W.Cast();
                     Q.Cast(position);
                 }
