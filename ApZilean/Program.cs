@@ -162,34 +162,30 @@ namespace ApZilean
 
                 var enemy = Enemies.Last();
 
-                Vector3 position;
-
+                Vector3 position;             
+                
                 //full combo
-                if (Q.IsReady() && W.IsReady() && E.IsReady())
+                if (E.IsInRange(enemy) && ise)
                 {
-                    Q.Cast(position = Q.GetPrediction(enemy).CastPosition);
-                    await Task.Delay(350); //q delay fix
-                    if (E.IsInRange(enemy) && ise)
-                    {
                         E.Cast(enemy);
-                        W.Cast();
-                        Q.Cast(position);
-                    }
-                    else
-                    {
-                        W.Cast();
-                        Q.Cast(position);
-                    }
-
                 }
-
-                // Combo without E
+                
                 else if (Q.IsReady() && W.IsReady())
                 {
                     Q.Cast(position = Q.GetPrediction(enemy).CastPosition);
+                    await Task.Delay(350); //q delay fix
                     W.Cast();
                     Q.Cast(position);
                 }
+
+                /* Combo without E
+                else if (Q.IsReady() && W.IsReady())
+                {
+                    Q.Cast(position = Q.GetPrediction(enemy).CastPosition);
+                    await Task.Delay(350); //q delay fix
+                    W.Cast();
+                    Q.Cast(position);
+                } */
 
                 //Combo without Q, but with W
 
