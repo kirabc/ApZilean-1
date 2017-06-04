@@ -155,13 +155,14 @@ namespace ApZilean
             {
                 var ise = ComboMenu["E"].Cast<CheckBox>().CurrentValue;
                 var focusby = ComboMenu["focusby"].Cast<Slider>().CurrentValue;
-                var predQ = Q.GetPrediction(target);
+                
                 var Enemies = EntityManager.Heroes.Enemies.Where(x => !x.IsDead && x.IsValidTarget() && Q.IsInRange(x)).OrderBy(x => focusby == 0 ? x.TotalAttackDamage : x.TotalMagicalDamage);
 
                 if (Enemies.Count() == 0) return;
 
                 var enemy = Enemies.Last();
-
+                var predQ = Q.GetPrediction(enemy);
+                
                 Vector3 position;             
                 
                 //full combo
@@ -171,6 +172,7 @@ namespace ApZilean
                 }
                 if (Q.IsReady() && predQ.HitChance >= HitChance.High)
                 {
+                        Q.Cast(predQ.CastPosition);
                         W.Cast();
                         await Task.Delay(350);
                     
@@ -179,9 +181,9 @@ namespace ApZilean
                 {
                         W.Cast();
                 }
-                if (Q.IsReady())
+                if (Q.IsReady() && predQ.HitChance >= HitChance.High)
                 {
-                       
+                     Q.Cast(predQ.CastPosition);  
                 }
 
             }
