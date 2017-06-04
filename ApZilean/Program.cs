@@ -171,7 +171,6 @@ namespace ApZilean
                 }
                 if (Q.IsReady() && predQ.HitChance >= HitChance.High)
                 {
-                        Q.Cast(predQ.CastPosition);
                         W.Cast();
                         await Task.Delay(350);
                     
@@ -182,7 +181,7 @@ namespace ApZilean
                 }
                 if (Q.IsReady())
                 {
-                        Q.Cast(predQ.CastPosition);
+                       
                 }
 
             }
