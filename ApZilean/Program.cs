@@ -180,7 +180,7 @@ namespace ApZilean
                 {
                         W.Cast();
                 }
-                if (Q.IsReady() && predQ.HitChance >= HitChance.High)
+                if (Q.IsReady())
                 {
                         Q.Cast(predQ.CastPosition);
                 }
