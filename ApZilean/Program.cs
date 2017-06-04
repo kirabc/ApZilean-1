@@ -161,15 +161,16 @@ namespace ApZilean
                 if (Enemies.Count() == 0) return;
 
                 var enemy = Enemies.Last();
-                var predQ = Q.GetPrediction(enemy);
                 
                 Vector3 position;             
                 
-                //full combo
-                if (E.IsInRange(enemy) && ise && E.IsReady())
-                {
+                foreach (var target in EntityManager.Heroes.Enemies.Where(e => e.IsValidTarget(2000) && !e.IsDead))
+     	        {
+                 var predQ = Q.GetPrediction(target);
+                 if (E.IsInRange(enemy) && ise && E.IsReady())
+                 {
                         E.Cast(enemy);
-                }
+                 }
                 if (Q.IsReady() && predQ.HitChance >= HitChance.High)
                 {
                         Q.Cast(predQ.CastPosition);
@@ -185,7 +186,7 @@ namespace ApZilean
                 {
                      Q.Cast(predQ.CastPosition);  
                 }
-
+               }
             }
             catch(Exception ex) { Console.WriteLine(ex.Message); }
         }
