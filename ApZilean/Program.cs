@@ -172,11 +172,9 @@ namespace ApZilean
                 else if (Q.IsReady() && predQ.HitChance >= HitChance.High)
                 {
                     Q.Cast(predQ.CastPosition);
-                    if (W.IsReady()) 
-                    {
-                       W.Cast();
-                       await Task.Delay(350);
-                    {
+                    W.Cast();
+                    await Task.Delay(350);
+                    
                 }
                 else if (E.IsInRange(enemy) && ise && E.IsReady())
                 {
@@ -185,11 +183,8 @@ namespace ApZilean
                 else if (Q.IsReady() && predQ.HitChance >= HitChance.High)
                 {
                    Q.Cast(predQ.CastPosition);
-                   if (W.IsReady()) 
-                   {
-                    W.Cast();
-                    await Task.Delay(350);
-                   {
+                   W.Cast();
+                   await Task.Delay(350);
                 }
                 else if (!Q.IsReady() && W.IsReady())
                 {
