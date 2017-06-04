@@ -155,7 +155,7 @@ namespace ApZilean
             {
                 var ise = ComboMenu["E"].Cast<CheckBox>().CurrentValue;
                 var focusby = ComboMenu["focusby"].Cast<Slider>().CurrentValue;
-
+                var predQ = Q.GetPrediction(target);
                 var Enemies = EntityManager.Heroes.Enemies.Where(x => !x.IsDead && x.IsValidTarget() && Q.IsInRange(x)).OrderBy(x => focusby == 0 ? x.TotalAttackDamage : x.TotalMagicalDamage);
 
                 if (Enemies.Count() == 0) return;
@@ -169,40 +169,37 @@ namespace ApZilean
                 {
                         E.Cast(enemy);
                 }
-                
-                else if (Q.IsReady() && W.IsReady())
+                else if (Q.IsReady() && predQ.HitChance >= HitChance.High)
                 {
-                    Q.Cast(position = Q.GetPrediction(enemy).CastPosition);
-                    await Task.Delay(350); //q delay fix
-                    if (E.IsInRange(enemy) && ise && E.IsReady())
+                    Q.Cast(predQ.CastPosition);
+                    if (W.IsReady()) 
                     {
-                        E.Cast(enemy);
-                    }
-                    W.Cast();
-                    Q.Cast(Q.GetPrediction(enemy).CastPosition);
+                       W.Cast();
+                       await Task.Delay(350);
+                    {
                 }
-
-                /* Combo without E
-                else if (Q.IsReady() && W.IsReady())
+                else if (E.IsInRange(enemy) && ise && E.IsReady())
                 {
-                    Q.Cast(position = Q.GetPrediction(enemy).CastPosition);
-                    await Task.Delay(350); //q delay fix
+                        E.Cast(enemy);
+                }
+                else if (Q.IsReady() && predQ.HitChance >= HitChance.High)
+                {
+                   Q.Cast(predQ.CastPosition);
+                   if (W.IsReady()) 
+                   {
                     W.Cast();
-                    Q.Cast(position);
-                } */
-
-                //Combo without Q, but with W
-
+                    await Task.Delay(350);
+                   {
+                }
                 else if (!Q.IsReady() && W.IsReady())
                 {
                     W.Cast();
-                    Q.Cast(Q.GetPrediction(enemy).CastPosition);
+                    await Task.Delay(350);
+                    Q.Cast(Q.GetPrediction(enemy).CastPosition)
                 }
-
-                // lazy combo
-                else if (Q.IsReady() && !W.IsReady())
+                else if (E.IsInRange(enemy) && ise && E.IsReady())
                 {
-                    Q.Cast(Q.GetPrediction(enemy).CastPosition);
+                        E.Cast(enemy);
                 }
 
             }
