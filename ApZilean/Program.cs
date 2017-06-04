@@ -179,7 +179,7 @@ namespace ApZilean
                         E.Cast(enemy);
                     }
                     W.Cast();
-                    Q.Cast(position);
+                    Q.Cast(Q.GetPrediction(enemy).CastPosition);
                 }
 
                 /* Combo without E
